@@ -26,10 +26,13 @@
         <joda-time.version>2.10.10</joda-time.version>
         <junit.version>4.13</junit.version>
         <lombok.version>1.18.12</lombok.version>
+        <meowu.poketto-commons.version>0.0.1</meowu.poketto-commons.version>
+        <meowu.poketto-mysql.version>0.0.1</meowu.poketto-mysql.version>
     </properties>
 
     <modules>
         <module>poketto-commons</module>
+        <module>poketto-mysql</module>
     </modules>
 
     <dependencyManagement>
@@ -65,6 +68,19 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>${joda-time.version}</version>
+            </dependency>
+
+            <!-- poketto -->
+            <dependency>
+                <groupId>com.meowu.poketto</groupId>
+                <artifactId>poketto-commons</artifactId>
+                <version>${meowu.poketto-commons.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.meowu.poketto</groupId>
+                <artifactId>poketto-mysql</artifactId>
+                <version>${meowu.poketto-mysql.version}</version>
             </dependency>
 
             <!-- junit -->

@@ -1,6 +1,6 @@
 package com.meowu.poketto.commons.domain;
 
-public interface Sortable{
+public interface Sortable extends Comparable{
 
     Integer getOrder();
 
