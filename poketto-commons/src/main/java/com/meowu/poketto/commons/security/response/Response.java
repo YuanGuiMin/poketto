@@ -46,12 +46,27 @@ public class Response<T>{
         this.data    = data;
     }
 
-    public static Response failure(int code){
-        return new Response(code, null, false);
+    public Response failure(int code){
+        this.code    = code;
+        this.success = false;
+
+        return this;
     }
 
-    public static Response failure(int code, String msg){
-        return new Response(code, msg, false);
+    public Response failure(String msg){
+        this.code    = FAILURE_CODE;
+        this.msg     = msg;
+        this.success = false;
+
+        return this;
+    }
+
+    public Response failure(int code, String msg){
+        this.code    = code;
+        this.msg     = msg;
+        this.success = false;
+
+        return this;
     }
 }
 
