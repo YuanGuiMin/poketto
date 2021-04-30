@@ -27,12 +27,15 @@
         <junit.version>4.13</junit.version>
         <lombok.version>1.18.12</lombok.version>
         <meowu.poketto-commons.version>0.0.1</meowu.poketto-commons.version>
-        <meowu.poketto-mysql.version>0.0.1</meowu.poketto-mysql.version>
+        <meowu.poketto-mybatis.version>0.0.1</meowu.poketto-mybatis.version>
+        <meowu.poketto-redis.version>0.0.1</meowu.poketto-redis.version>
+        <redis.version>3.6.0</redis.version>
     </properties>
 
     <modules>
         <module>commons</module>
         <module>mybatis</module>
+        <module>redis</module>
     </modules>
 
     <dependencyManagement>
@@ -70,11 +73,30 @@
                 <version>${joda-time.version}</version>
             </dependency>
 
+            <!-- redis -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${redis.version}</version>
+            </dependency>
+
             <!-- poketto -->
             <dependency>
                 <groupId>com.meowu.poketto</groupId>
                 <artifactId>commons</artifactId>
                 <version>${meowu.poketto-commons.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.meowu.poketto</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${meowu.poketto-mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.meowu.poketto</groupId>
+                <artifactId>redis</artifactId>
+                <version>${meowu.poketto-redis.version}</version>
             </dependency>
 
             <!-- junit -->
