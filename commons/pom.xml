@@ -5,19 +5,19 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <name>poketto-commons</name>
+    <name>commons</name>
     <groupId>com.meowu.poketto</groupId>
-    <artifactId>poketto-commons</artifactId>
+    <artifactId>commons</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <properties>
-        <project.name>poketto-commons</project.name>
+        <project.name>commons</project.name>
     </properties>
 
     <parent>
         <groupId>com.meowu.poketto</groupId>
-        <artifactId>poketto-parent</artifactId>
+        <artifactId>parent</artifactId>
         <version>0.0.1</version>
     </parent>
 

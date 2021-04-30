@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <name>poketto</name>
     <groupId>com.meowu.poketto</groupId>
-    <artifactId>poketto-parent</artifactId>
+    <artifactId>parent</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
 
@@ -31,8 +31,7 @@
     </properties>
 
     <modules>
-        <module>poketto-commons</module>
-        <module>poketto-mysql</module>
+        <module>commons</module>
     </modules>
 
     <dependencyManagement>
@@ -73,14 +72,8 @@
             <!-- poketto -->
             <dependency>
                 <groupId>com.meowu.poketto</groupId>
-                <artifactId>poketto-commons</artifactId>
+                <artifactId>commons</artifactId>
                 <version>${meowu.poketto-commons.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.meowu.poketto</groupId>
-                <artifactId>poketto-mysql</artifactId>
-                <version>${meowu.poketto-mysql.version}</version>
             </dependency>
 
             <!-- junit -->
