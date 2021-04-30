@@ -20,4 +20,7 @@ public interface Operator{
     String AND         = "AND";
     String OR          = "OR";
     String LIMIT       = "LIMIT";
+    String SORT        = "ORDER BY";
+    String ASC         = "ASC";
+    String DESC        = "DESC";
 }

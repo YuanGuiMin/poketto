@@ -1,5 +1,6 @@
 package com.meowu.poketto.mybatis.mysql.criteria;
 
+import com.google.common.base.Joiner;
 import com.meowu.poketto.commons.utils.AssertUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import java.util.List;
 @Setter
 public class Criterion{
 
-    private String property;
+    private String field;
     private String operator;
     private Object value;
     private Object secondValue;
@@ -24,13 +25,18 @@ public class Criterion{
     private Boolean andValue       = false;
     private Boolean orValue        = false;
     private Boolean limitValue     = false;
+    private Boolean sortValue      = false;
 
     public Criterion(){
 
     }
 
-    public Criterion(String property){
-        this.property = property;
+    public Criterion(String field){
+        this.field = field;
+    }
+
+    public Criterion(String... fields){
+        this.field = Joiner.on(",").join(fields);
     }
 
     public Criterion eq(Object value){
@@ -209,6 +215,22 @@ public class Criterion{
         this.secondValue = size;
         this.operator    = Operator.LIMIT;
         this.limitValue  = true;
+
+        return this;
+    }
+
+    public Criterion asc(){
+        this.value     = Operator.ASC;
+        this.operator  = Operator.SORT;
+        this.sortValue = true;
+
+        return this;
+    }
+
+    public Criterion desc(){
+        this.value     = Operator.DESC;
+        this.operator  = Operator.SORT;
+        this.sortValue = true;
 
         return this;
     }
