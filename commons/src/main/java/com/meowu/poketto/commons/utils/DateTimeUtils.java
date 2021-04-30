@@ -1,6 +1,7 @@
 package com.meowu.poketto.commons.utils;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 import java.util.Date;
 
@@ -17,5 +18,12 @@ public class DateTimeUtils{
         AssertUtils.isNotBlank(pattern, "the format pattern must not be null");
 
         return new DateTime(date).toString(pattern);
+    }
+
+    public static Date parse(String date, String pattern){
+        AssertUtils.isNotBlank(date, "the date string must not be null");
+        AssertUtils.isNotBlank(pattern, "then format pattern must not be null");
+
+        return DateTime.parse(date, DateTimeFormat.forPattern(pattern)).toDate();
     }
 }

@@ -16,9 +16,7 @@ public class GsonUtils{
     }
 
     public static String serialize(Gson gson, Object writer){
-        if(gson == null){
-            gson = GSON;
-        }
+        AssertUtils.notNull(gson, "gson util must not be null");
 
         return gson.toJson(writer);
     }
@@ -33,20 +31,14 @@ public class GsonUtils{
 
     public static <T> T deserialize(Gson gson, String reader, Class<T> clazz){
         AssertUtils.notNull(clazz, "object deserialization class must not be null");
-
-        if(gson == null){
-            gson = GSON;
-        }
+        AssertUtils.notNull(gson, "gson util must not be null");
 
         return gson.fromJson(reader, clazz);
     }
 
     public static <T> T deserialize(Gson gson, String reader, Type type){
         AssertUtils.notNull(type, "object deserialization type must not be null");
-
-        if(gson == null){
-            gson = GSON;
-        }
+        AssertUtils.notNull(gson, "gson util must not be null");
 
         return gson.fromJson(reader, type);
     }
