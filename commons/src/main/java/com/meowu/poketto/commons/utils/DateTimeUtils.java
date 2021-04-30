@@ -14,7 +14,7 @@ public class DateTimeUtils{
     }
 
     public static String toString(Date date, String pattern){
-        AssertUtils.notNull(date, "the date to format must not be null");
+        AssertUtils.notNull(date, "the date object must not be null");
         AssertUtils.isNotBlank(pattern, "the format pattern must not be null");
 
         return new DateTime(date).toString(pattern);
@@ -22,7 +22,7 @@ public class DateTimeUtils{
 
     public static Date parse(String date, String pattern){
         AssertUtils.isNotBlank(date, "the date string must not be null");
-        AssertUtils.isNotBlank(pattern, "then format pattern must not be null");
+        AssertUtils.isNotBlank(pattern, "the format pattern must not be null");
 
         return DateTime.parse(date, DateTimeFormat.forPattern(pattern)).toDate();
     }
