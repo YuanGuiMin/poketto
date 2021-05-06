@@ -17,6 +17,10 @@ public class ShardedJedisHelper{
         jedis.set(key, getValue(value));
     }
 
+    public static void saveAndExpire(ShardedJedis jedis, String key, Object value, long seconds){
+        saveAndExpire(jedis, key, value, TimeUnit.SECONDS, seconds);
+    }
+
     public static void saveAndExpire(ShardedJedis jedis, String key, Object value, TimeUnit timeUnit, long expire){
         assertClient(jedis);
         assertKey(key);
@@ -25,7 +29,23 @@ public class ShardedJedisHelper{
         jedis.set(key, getValue(value));
 
         //设置有效时间
-        if(TimeUnit.MILLISECONDS.equals(timeUnit)){
+        if(timeUnit != null && TimeUnit.MILLISECONDS.equals(timeUnit)){
+            jedis.pexpire(key, expire);
+        }else{
+            jedis.expire(key, timeUnit.toSeconds(expire));
+        }
+    }
+
+    public static void expire(ShardedJedis jedis, String key, long seconds){
+        expire(jedis, key, TimeUnit.SECONDS, seconds);
+    }
+
+    public static void expire(ShardedJedis jedis, String key, TimeUnit timeUnit, long expire){
+        assertClient(jedis);
+        assertKey(key);
+
+        //设置有效时间
+        if(timeUnit != null && TimeUnit.MILLISECONDS.equals(timeUnit)){
             jedis.pexpire(key, expire);
         }else{
             jedis.expire(key, timeUnit.toSeconds(expire));
@@ -44,6 +64,35 @@ public class ShardedJedisHelper{
         assertKey(key);
 
         return getValue(jeids.get(key), type);
+    }
+
+    public static void delete(ShardedJedis jedis, String key){
+        assertClient(jedis);
+        assertKey(key);
+
+        jedis.del(key);
+    }
+
+    public static boolean exist(ShardedJedis jedis, String key){
+        assertClient(jedis);
+        assertKey(key);
+
+        return jedis.exists(key);
+    }
+
+    public static long ttl(ShardedJedis jedis, String key){
+        return ttl(jedis, key, TimeUnit.SECONDS);
+    }
+
+    public static long ttl(ShardedJedis jedis, String key, TimeUnit timeUnit){
+        assertClient(jedis);
+        assertKey(key);
+
+        if(timeUnit != null && TimeUnit.MILLISECONDS.equals(timeUnit)){
+            return jedis.pttl(key);
+        }else{
+            return jedis.ttl(key);
+        }
     }
 
     private static void assertClient(ShardedJedis jedis){
