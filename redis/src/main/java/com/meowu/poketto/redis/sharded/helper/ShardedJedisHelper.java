@@ -95,6 +95,47 @@ public class ShardedJedisHelper{
         }
     }
 
+    public static long incr(ShardedJedis jedis, String key){
+        return incr(jedis, key, 1L);
+    }
+
+    public static long incr(ShardedJedis jedis, String key, long amount){
+        assertClient(jedis);
+        assertKey(key);
+
+        return jedis.incrBy(key, amount);
+    }
+
+    public static long decr(ShardedJedis jedis, String key){
+        return decr(jedis, key, 1L);
+    }
+
+    public static long decr(ShardedJedis jedis, String key, long amount){
+        assertClient(jedis);
+        assertKey(key);
+
+        return jedis.decrBy(key, amount);
+    }
+
+    public static double incrByDouble(ShardedJedis jedis, String key){
+        return incrByDouble(jedis, key, 1D);
+    }
+
+    public static double incrByDouble(ShardedJedis jedis, String key, double amount){
+        assertClient(jedis);
+        assertKey(key);
+
+        return jedis.incrByFloat(key, amount);
+    }
+
+    public static double decrByDouble(ShardedJedis jedis, String key){
+        return incrByDouble(jedis, key, -1D);
+    }
+
+    public static double decrByDouble(ShardedJedis jedis, String key, double amount){
+        return incrByDouble(jedis, key, -amount);
+    }
+
     private static void assertClient(ShardedJedis jedis){
         AssertUtils.notNull(jedis, "jedis client must not be null");
     }
