@@ -4,20 +4,25 @@
 
 <mapper>
     <sql id="WHERE_SQL">
-        <if test="params != null and !params.conditions.isEmpty">
-            <include refid="CONDITION_SQL"/>
+        <if test="params != null and params.conditions != null and !params.conditions.isEmpty">
+            <where>
+
+            </where>
         </if>
     </sql>
 
-    <sql id="CONDITION_SQL">
-
+    <sql id="SORT_SQL">
+        <if test="params != null and params.sort != null and !params.sort.isEmpty">
+            ORDER BY
+            <foreach collection="params.sort" item="sort" separator=",">
+                #{sort.field} ${sort.value}
+            </foreach>
+        </if>
     </sql>
 
     <sql id="LIMIT_SQL">
-
-    </sql>
-
-    <sql id="SORT_SQL">
-
+        <if test="params != null and params.limit != null">
+            ${params.limit.operator} ${params.limit.value}, ${params.limit.secondValue}
+        </if>
     </sql>
 </mapper>
