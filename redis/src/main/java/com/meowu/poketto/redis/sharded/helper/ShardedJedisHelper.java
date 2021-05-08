@@ -141,7 +141,7 @@ public class ShardedJedisHelper{
     }
 
     private static void assertKey(String key){
-        AssertUtils.isNotBlank(key, "client key must not be null");
+        AssertUtils.isNotBlank(key, "redis key must not be null");
     }
 
     private static boolean notNullValue(String value){
@@ -149,7 +149,7 @@ public class ShardedJedisHelper{
     }
 
     private static String getValue(Object value){
-        AssertUtils.notNull(value, "client value must not be null");
+        AssertUtils.notNull(value, "redis value must not be null");
 
         return GsonUtils.serialize(value);
     }
