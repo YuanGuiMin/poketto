@@ -10,53 +10,53 @@ import java.util.concurrent.TimeUnit;
 
 public class ShardedJedisHelper{
 
-    public static void save(ShardedJedis jedis, String key, Object value){
-        assertClient(jedis);
+    public static void save(ShardedJedis client, String key, Object value){
+        assertClient(client);
         assertKey(key);
 
-        jedis.set(key, getValue(value));
+        client.set(key, getValue(value));
     }
 
-    public static void saveAndExpire(ShardedJedis jedis, String key, Object value, long seconds){
-        saveAndExpire(jedis, key, value, TimeUnit.SECONDS, seconds);
+    public static void saveAndExpire(ShardedJedis client, String key, Object value, long seconds){
+        saveAndExpire(client, key, value, TimeUnit.SECONDS, seconds);
     }
 
-    public static void saveAndExpire(ShardedJedis jedis, String key, Object value, TimeUnit timeUnit, long expire){
-        assertClient(jedis);
+    public static void saveAndExpire(ShardedJedis client, String key, Object value, TimeUnit timeUnit, long expire){
+        assertClient(client);
         assertKey(key);
 
         //保存记录
-        jedis.set(key, getValue(value));
+        client.set(key, getValue(value));
 
         //设置有效时间
         if(timeUnit != null && TimeUnit.MILLISECONDS.equals(timeUnit)){
-            jedis.pexpire(key, expire);
+            client.pexpire(key, expire);
         }else{
-            jedis.expire(key, timeUnit.toSeconds(expire));
+            client.expire(key, timeUnit.toSeconds(expire));
         }
     }
 
-    public static void expire(ShardedJedis jedis, String key, long seconds){
-        expire(jedis, key, TimeUnit.SECONDS, seconds);
+    public static void expire(ShardedJedis client, String key, long seconds){
+        expire(client, key, TimeUnit.SECONDS, seconds);
     }
 
-    public static void expire(ShardedJedis jedis, String key, TimeUnit timeUnit, long expire){
-        assertClient(jedis);
+    public static void expire(ShardedJedis client, String key, TimeUnit timeUnit, long expire){
+        assertClient(client);
         assertKey(key);
 
         //设置有效时间
         if(timeUnit != null && TimeUnit.MILLISECONDS.equals(timeUnit)){
-            jedis.pexpire(key, expire);
+            client.pexpire(key, expire);
         }else{
-            jedis.expire(key, timeUnit.toSeconds(expire));
+            client.expire(key, timeUnit.toSeconds(expire));
         }
     }
 
-    public static <T> T get(ShardedJedis jedis, String key, Class<T> clazz){
-        assertClient(jedis);
+    public static <T> T get(ShardedJedis client, String key, Class<T> clazz){
+        assertClient(client);
         assertKey(key);
 
-        return getValue(jedis.get(key), clazz);
+        return getValue(client.get(key), clazz);
     }
 
     public static <T> T get(ShardedJedis jeids, String key, Type type){
@@ -66,82 +66,82 @@ public class ShardedJedisHelper{
         return getValue(jeids.get(key), type);
     }
 
-    public static void delete(ShardedJedis jedis, String key){
-        assertClient(jedis);
+    public static void delete(ShardedJedis client, String key){
+        assertClient(client);
         assertKey(key);
 
-        jedis.del(key);
+        client.del(key);
     }
 
-    public static boolean exist(ShardedJedis jedis, String key){
-        assertClient(jedis);
+    public static boolean exist(ShardedJedis client, String key){
+        assertClient(client);
         assertKey(key);
 
-        return jedis.exists(key);
+        return client.exists(key);
     }
 
-    public static long ttl(ShardedJedis jedis, String key){
-        return ttl(jedis, key, TimeUnit.SECONDS);
+    public static long ttl(ShardedJedis client, String key){
+        return ttl(client, key, TimeUnit.SECONDS);
     }
 
-    public static long ttl(ShardedJedis jedis, String key, TimeUnit timeUnit){
-        assertClient(jedis);
+    public static long ttl(ShardedJedis client, String key, TimeUnit timeUnit){
+        assertClient(client);
         assertKey(key);
 
         if(timeUnit != null && TimeUnit.MILLISECONDS.equals(timeUnit)){
-            return jedis.pttl(key);
+            return client.pttl(key);
         }else{
-            return jedis.ttl(key);
+            return client.ttl(key);
         }
     }
 
-    public static long incr(ShardedJedis jedis, String key){
-        return incr(jedis, key, 1L);
+    public static long incr(ShardedJedis client, String key){
+        return incr(client, key, 1L);
     }
 
-    public static long incr(ShardedJedis jedis, String key, long amount){
-        assertClient(jedis);
+    public static long incr(ShardedJedis client, String key, long amount){
+        assertClient(client);
         assertKey(key);
 
-        return jedis.incrBy(key, amount);
+        return client.incrBy(key, amount);
     }
 
-    public static long decr(ShardedJedis jedis, String key){
-        return decr(jedis, key, 1L);
+    public static long decr(ShardedJedis client, String key){
+        return decr(client, key, 1L);
     }
 
-    public static long decr(ShardedJedis jedis, String key, long amount){
-        assertClient(jedis);
+    public static long decr(ShardedJedis client, String key, long amount){
+        assertClient(client);
         assertKey(key);
 
-        return jedis.decrBy(key, amount);
+        return client.decrBy(key, amount);
     }
 
-    public static double incrByDouble(ShardedJedis jedis, String key){
-        return incrByDouble(jedis, key, 1D);
+    public static double incrByDouble(ShardedJedis client, String key){
+        return incrByDouble(client, key, 1D);
     }
 
-    public static double incrByDouble(ShardedJedis jedis, String key, double amount){
-        assertClient(jedis);
+    public static double incrByDouble(ShardedJedis client, String key, double amount){
+        assertClient(client);
         assertKey(key);
 
-        return jedis.incrByFloat(key, amount);
+        return client.incrByFloat(key, amount);
     }
 
-    public static double decrByDouble(ShardedJedis jedis, String key){
-        return incrByDouble(jedis, key, -1D);
+    public static double decrByDouble(ShardedJedis client, String key){
+        return incrByDouble(client, key, -1D);
     }
 
-    public static double decrByDouble(ShardedJedis jedis, String key, double amount){
-        return incrByDouble(jedis, key, -amount);
+    public static double decrByDouble(ShardedJedis client, String key, double amount){
+        return incrByDouble(client, key, -amount);
     }
 
-    private static void assertClient(ShardedJedis jedis){
-        AssertUtils.notNull(jedis, "jedis client must not be null");
+    private static void assertClient(ShardedJedis client){
+        AssertUtils.notNull(client, "client client must not be null");
     }
 
     private static void assertKey(String key){
-        AssertUtils.isNotBlank(key, "jedis key must not be null");
+        AssertUtils.isNotBlank(key, "client key must not be null");
     }
 
     private static boolean notNullValue(String value){
@@ -149,7 +149,7 @@ public class ShardedJedisHelper{
     }
 
     private static String getValue(Object value){
-        AssertUtils.notNull(value, "jedis value must not be null");
+        AssertUtils.notNull(value, "client value must not be null");
 
         return GsonUtils.serialize(value);
     }
