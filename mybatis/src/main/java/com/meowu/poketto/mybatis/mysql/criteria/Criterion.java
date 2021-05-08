@@ -24,6 +24,7 @@ public class Criterion{
     private Boolean criterionValue = false;
     private Boolean limitValue     = false;
     private Boolean sortValue      = false;
+    private Boolean groupByValue   = false;
 
     public Criterion(){
 
@@ -213,6 +214,13 @@ public class Criterion{
         this.secondValue = size;
         this.operator    = Operator.LIMIT;
         this.limitValue  = true;
+
+        return this;
+    }
+
+    public Criterion groupBy(){
+        this.operator     = Operator.GROUP_BY;
+        this.groupByValue = true;
 
         return this;
     }

@@ -81,6 +81,10 @@ public class Restrictions{
         return new Criterion().limit(pageRequest.getOffset(), pageRequest.getPageSize());
     }
 
+    public static Criterion groupBy(String... fields){
+        return new Criterion(getFields(fields)).groupBy();
+    }
+
     public static Criterion asc(String... fields){
         return new Criterion(getFields(fields)).asc();
     }

@@ -68,4 +68,10 @@
             ${params.limit.operator} ${params.limit.value}, ${params.limit.secondValue}
         </if>
     </sql>
+
+    <sql id="GROUP_BY_SQL">
+        <if test="params != null and params.groupBy != null">
+            ${params.groupBy.operator} ${params.groupBy.value}
+        </if>
+    </sql>
 </mapper>

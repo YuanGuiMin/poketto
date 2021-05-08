@@ -15,6 +15,7 @@ public class Criteria{
     private List<Criterion> sort       = Lists.newArrayList();
 
     private Criterion limit;
+    private Criterion groupBy;
 
     public Criteria(){
 
@@ -44,9 +45,19 @@ public class Criteria{
         return this;
     }
 
+    public Criteria groupBy(Criterion groupBy){
+        AssertUtils.notNull(groupBy, "group by condition must not be null");
+
+        this.groupBy = groupBy;
+
+        return this;
+    }
+
     public Criteria clear(){
         this.conditions.clear();
         this.sort.clear();
+        this.limit = null;
+        this.groupBy = null;
 
         return this;
     }
@@ -65,6 +76,12 @@ public class Criteria{
 
     public Criteria clearLimit(){
         this.limit = null;
+
+        return this;
+    }
+
+    public Criteria clearGroupBy(){
+        this.groupBy = null;
 
         return this;
     }
