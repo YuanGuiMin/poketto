@@ -6,7 +6,50 @@
     <sql id="WHERE_SQL">
         <if test="params != null and params.conditions != null and !params.conditions.isEmpty">
             <where>
-
+                <foreach collection="params.conditions" item="criterion">
+                    <trim prefix="AND (" suffix=")">
+                        <choose>
+                            <when test="criterion.singleValue">
+                                ${criterion.field} ${criterion.operator} #{criterion.value}
+                            </when>
+                            <when test="criterion.twinValue">
+                                ${criterion.field} ${criterion.operator} #{criterion.value} AND ${criterion.secondValue}
+                            </when>
+                            <when test="criterion.listValue">
+                                ${criterion.field} ${criterion.operator}
+                                <foreach collection="criterion.value" item="value" open="(" close=")" separator=",">
+                                    #{value}
+                                </foreach>
+                            </when>
+                            <when test="criterion.noValue">
+                                ${criterion.field} ${criterion.operator}
+                            </when>
+                            <when test="criterion.criterionValue">
+                                <foreach collection="criterion.value" item="item" open="(" close=")" separator="criterion.operator">
+                                    <trim prefix="(" suffix=")">
+                                        <choose>
+                                            <when test="item.singleValue">
+                                                ${item.field} ${item.operator} #{item.value}
+                                            </when>
+                                            <when test="item.twinValue">
+                                                ${item.field} ${item.operator} #{item.value} AND ${item.secondValue}
+                                            </when>
+                                            <when test="item.listValue">
+                                                ${item.field} ${item.operator}
+                                                <foreach collection="item.value" item="value" open="(" close=")" separator=",">
+                                                    #{value}
+                                                </foreach>
+                                            </when>
+                                            <when test="item.noValue">
+                                                ${item.field} ${item.operator}
+                                            </when>
+                                        </choose>
+                                    </trim>
+                                </foreach>
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
             </where>
         </if>
     </sql>

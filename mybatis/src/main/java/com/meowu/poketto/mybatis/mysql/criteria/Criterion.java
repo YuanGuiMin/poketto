@@ -22,8 +22,6 @@ public class Criterion{
     private Boolean listValue      = false;
     private Boolean noValue        = false;
     private Boolean criterionValue = false;
-    private Boolean andValue       = false;
-    private Boolean orValue        = false;
     private Boolean limitValue     = false;
     private Boolean sortValue      = false;
 
